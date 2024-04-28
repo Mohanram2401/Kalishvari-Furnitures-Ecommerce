@@ -22,9 +22,9 @@ export default function PaymentModal({ isOpen, setIsOpen, price, buyNowFunction,
                 clearCart(); // Clear the cart after successful order placement
             },
             prefill: {
-                name: "Kalishvari Furnitures",
+                name: "",
                 email: "kalishvari@gmail.com",
-                contact: "9965779898"
+                contact: "6380044993"
             },
             theme: { color: "#252525" }
         };
