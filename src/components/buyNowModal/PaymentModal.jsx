@@ -14,7 +14,7 @@ export default function PaymentModal({ isOpen, setIsOpen, price, buyNowFunction,
             currency: "INR",
             name: "Kalishvari Furnitures",
             description: "Furniture Shop",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Cirila-%D0%9C-majuskla.svg/640px-Cirila-%D0%9C-majuskla.svg.png",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Font_K.svg/800px-Font_K.svg.png",
             handler: function (response) {
                 setIsOpen(false);
                 toast.success("Order placed successfully");
