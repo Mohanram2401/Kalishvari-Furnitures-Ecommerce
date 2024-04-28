@@ -1,42 +1,44 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = JSON.parse(localStorage.getItem('cart')) ?? [];
-console.log(initialState)
-
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
         addToCart(state, action) {
-            state.push(action.payload)
+            state.push(action.payload);
+            localStorage.setItem('cart', JSON.stringify(state));
         },
         deleteFromCart(state, action) {
-            return state.filter(item => item.id != action.payload.id);
+            const index = state.findIndex(item => item.id === action.payload.id);
+            if (index !== -1) {
+                state.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(state));
+            }
         },
-        incrementQuantity: (state, action) => {
-            state = state.map(item => {
-                if (item.id === action.payload) {
-                    item.quantity++;
-                }
-                return item;
-            });
+        incrementQuantity(state, action) {
+            const index = state.findIndex(item => item.id === action.payload);
+            if (index !== -1) {
+                state[index].quantity++;
+                localStorage.setItem('cart', JSON.stringify(state));
+            }
         },
-        decrementQuantity: (state, action) => {
-            state = state.map(item => {
-                if (item.quantity !== 1) {
-                    if (item.id === action.payload) {
-                        item.quantity--;
-                    }
-                }
-                return item;
-
-            })
+        decrementQuantity(state, action) {
+            const index = state.findIndex(item => item.id === action.payload);
+            if (index !== -1 && state[index].quantity > 1) {
+                state[index].quantity--;
+                localStorage.setItem('cart', JSON.stringify(state));
+            }
+        },
+        clearCart(state) {
+            state = [];
+            localStorage.removeItem('cart');
+            return state;
         },
     },
-})
+});
 
-// Action creators are generated for each case reducer function
-export const { addToCart, deleteFromCart, incrementQuantity, decrementQuantity } = cartSlice.actions
+export const { addToCart, deleteFromCart, incrementQuantity, decrementQuantity, clearCart } = cartSlice.actions;
 
-export default cartSlice.reducer
+export default cartSlice.reducer;

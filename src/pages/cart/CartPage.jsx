@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/layout/Layout";
 import { Trash } from 'lucide-react'
-import { decrementQuantity, deleteFromCart, incrementQuantity } from "../../redux/cartSlice";
-import toast from "react-hot-toast";
+import { decrementQuantity, deleteFromCart, incrementQuantity, clearCart } from "../../redux/cartSlice"; // Import clearCart
 import { useEffect, useState } from "react";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
@@ -212,6 +211,7 @@ const CartPage = () => {
                                                     isOpen={paymentModalOpen}
                                                     setIsOpen={setPaymentModalOpen}
                                                     price={cartTotal}
+                                                    clearCart={() => dispatch(clearCart())} // Pass clearCart function to PaymentModal
                                                 />
                                                 {/* {paymentSuccess && toast.success("Order Placed Successfully")} */}
                                             </>
